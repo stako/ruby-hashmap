@@ -32,6 +32,12 @@ class HashMap
     @buckets[index].value
   end
 
+  def has(key)
+    index = hash(key) % @capacity
+
+    @buckets[index] and @buckets[index].key == key or false
+  end
+
   def length
     @buckets.count { |element| !element.nil? }
   end
