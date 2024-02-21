@@ -20,25 +20,27 @@ class HashMap
   end
 
   def set(key, value)
-    index = hash(key) % @capacity
-    raise IndexError if index.negative? || index >= @buckets.length
-
-    @buckets[index] = Node.new(key, value)
+    @buckets[get_index(key)] = Node.new(key, value)
   end
 
   def get(key)
-    index = hash(key) % @capacity
-
-    @buckets[index].value
+    @buckets[get_index(key)].value
   end
 
   def has(key)
-    index = hash(key) % @capacity
+    index = get_index(key)
 
     @buckets[index] and @buckets[index].key == key or false
   end
 
   def length
     @buckets.count { |element| !element.nil? }
+  end
+
+  def get_index(key)
+    index = hash(key) % @capacity
+    raise IndexError if index.negative? || index >= @buckets.length
+
+    index
   end
 end
