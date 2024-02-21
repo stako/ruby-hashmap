@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_relative 'hash_map/node'
-
 # Personal hash map implementation
 class HashMap
   def initialize
