@@ -25,7 +25,7 @@ class HashMap
     @buckets[get_index(key)]&.get_node(key)&.value
   end
 
-  def has(key)
+  def has?(key)
     @buckets[get_index(key)]&.get_node(key) ? true : false
   end
 
