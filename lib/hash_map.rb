@@ -10,6 +10,8 @@ class HashMap
   end
 
   def set(key, value)
+    increase_capacity if length.to_f / @capacity > @load_factor
+
     index = get_index(key)
 
     list = @buckets[index].nil? ? LinkedList.new : @buckets[index]
@@ -66,6 +68,14 @@ class HashMap
 
   private
 
+  def increase_capacity
+    old_buckets = @buckets
+    @capacity *= 2
+    @buckets = Array.new(@capacity)
+
+    loop_nodes(old_buckets) { |node| set(node.key, node.value) }
+  end
+
   def hash(key)
     hash_code = 0
     prime_number = 31
@@ -82,8 +92,8 @@ class HashMap
     index
   end
 
-  def loop_nodes
-    @buckets.each do |bucket|
+  def loop_nodes(buckets = @buckets)
+    buckets.each do |bucket|
       next if bucket.nil?
 
       node = bucket.head
