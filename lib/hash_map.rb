@@ -5,12 +5,13 @@ class HashMap
   def initialize(default_capacity = 16)
     @default_capacity = default_capacity
     @capacity = default_capacity
-    @load_factor = 0.75
     @buckets = Array.new(@capacity)
   end
 
+  LOAD_FACTOR = 0.75
+
   def set(key, value)
-    increase_capacity if length.to_f / @capacity > @load_factor
+    increase_capacity if length.to_f / @capacity > LOAD_FACTOR
 
     index = get_index(key)
 
