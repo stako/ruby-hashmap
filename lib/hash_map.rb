@@ -9,17 +9,21 @@ class HashMap
   end
 
   def set(key, value)
-    @buckets[get_index(key)] = Node.new(key, value)
+    index = get_index(key)
+
+    list = @buckets[index].nil? ? LinkedList.new : @buckets[index]
+    @buckets[index] = list
+
+    node = list.get_node(key)
+    node ? node.value = value : list.append(key, value)
   end
 
   def get(key)
-    @buckets[get_index(key)].value
+    @buckets[get_index(key)]&.get_node(key)&.value
   end
 
   def has(key)
-    index = get_index(key)
-
-    @buckets[index] and @buckets[index].key == key or false
+    @buckets[get_index(key)]&.get_node(key) ? true : false
   end
 
   def length
