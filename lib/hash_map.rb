@@ -11,7 +11,7 @@ class HashMap
   LOAD_FACTOR = 0.75
 
   def set(key, value)
-    increase_capacity if length.to_f / @capacity > LOAD_FACTOR
+    increase_capacity if overloaded?
 
     index = get_index(key)
 
@@ -75,6 +75,12 @@ class HashMap
     @buckets = Array.new(@capacity)
 
     loop_nodes(old_buckets) { |node| set(node.key, node.value) }
+  end
+
+  def overloaded?
+    in_use = @buckets.count { |element| !element.nil? }
+
+    in_use.to_f / @capacity > LOAD_FACTOR
   end
 
   def hash(key)
