@@ -31,6 +31,12 @@ class HashMap
     @buckets.count { |element| !element.nil? }
   end
 
+  def clear
+    @capacity = @default_capacity
+    @buckets.clear
+    @buckets.fill(nil, 0, @default_capacity)
+  end
+
   private
 
   def hash(key)
