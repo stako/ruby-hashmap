@@ -16,13 +16,19 @@ class LinkedList
     return nil if @head.nil?
 
     node = @head
-    loop do
+
+    until node.nil?
       return node if node.key == key
 
       node = node.next_node
-      break if node.next_node.nil?
     end
 
     nil
+  end
+
+  def remove(node)
+    @head = node.next_node if node == @head
+    node.next_node.prev_node = node.prev_node if node.next_node
+    node.prev_node.next_node = node.next_node if node.prev_node
   end
 end

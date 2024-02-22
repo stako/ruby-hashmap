@@ -27,6 +27,15 @@ class HashMap
     @buckets[get_index(key)]&.get_node(key) ? true : false
   end
 
+  def remove(key)
+    list = @buckets[get_index(key)]
+    node = list&.get_node(key)
+    return nil if node.nil?
+
+    list.remove(node)
+    node.value
+  end
+
   def length
     @buckets.count { |element| !element.nil? }
   end
