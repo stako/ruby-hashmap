@@ -2,9 +2,12 @@
 
 # Personal hash map implementation
 class HashMap
+  attr_reader :length
+
   def initialize(default_capacity = 16)
     @default_capacity = default_capacity
     @capacity = default_capacity
+    @length = 0
     @buckets = Array.new(@capacity)
   end
 
@@ -20,6 +23,7 @@ class HashMap
 
     node = list.get_node(key)
     node ? node.value = value : list.append(key, value)
+    @length += 1 unless node.nil?
   end
 
   def get(key)
@@ -36,11 +40,8 @@ class HashMap
     return nil if node.nil?
 
     list.remove(node)
+    @length -= 1
     node.value
-  end
-
-  def length
-    @buckets.count { |element| !element.nil? }
   end
 
   def clear
