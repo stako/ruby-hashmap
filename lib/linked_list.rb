@@ -16,7 +16,6 @@ class LinkedList
     return nil if @head.nil?
 
     node = @head
-
     until node.nil?
       return node if node.key == key
 
