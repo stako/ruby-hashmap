@@ -23,7 +23,7 @@ class HashMap
 
     node = list.get_node(key)
     node ? node.value = value : list.append(key, value)
-    @length += 1 unless node.nil?
+    @length += 1 if node.nil?
   end
 
   def get(key)
@@ -48,6 +48,7 @@ class HashMap
     @capacity = @default_capacity
     @buckets.clear
     @buckets.fill(nil, 0, @default_capacity)
+    @length = 0
   end
 
   def keys
