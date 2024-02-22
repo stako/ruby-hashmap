@@ -46,6 +46,24 @@ class HashMap
     @buckets.fill(nil, 0, @default_capacity)
   end
 
+  def keys
+    key_list = []
+    loop_nodes { |node| key_list.push(node.key) }
+    key_list
+  end
+
+  def values
+    value_list = []
+    loop_nodes { |node| value_list.push(node.value) }
+    value_list
+  end
+
+  def entries
+    entry_list = []
+    loop_nodes { |node| entry_list.push([node.key, node.value]) }
+    entry_list
+  end
+
   private
 
   def hash(key)
@@ -62,5 +80,17 @@ class HashMap
     raise IndexError if index.negative? || index >= @buckets.length
 
     index
+  end
+
+  def loop_nodes
+    @buckets.each do |bucket|
+      next if bucket.nil?
+
+      node = bucket.head
+      until node.nil?
+        yield(node)
+        node = node.next_node
+      end
+    end
   end
 end
