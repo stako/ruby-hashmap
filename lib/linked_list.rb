@@ -4,6 +4,8 @@ Node = Struct.new('Node', :key, :value, :prev_node, :next_node)
 
 # Linked List class
 class LinkedList
+  attr_reader :head
+
   def append(key, value)
     return @head = Node.new(key, value) if @head.nil?
 
