@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-Node = Struct.new('Node', :key, :value, :next_node)
+Node = Struct.new('Node', :key, :value, :prev_node, :next_node)
 
 # Linked List class
 class LinkedList
@@ -9,7 +9,7 @@ class LinkedList
 
     tmp = @head
     tmp = tmp.next_node until tmp.next_node.nil?
-    tmp.next_node = Node.new(key, value)
+    tmp.next_node = Node.new(key, value, tmp)
   end
 
   def get_node(key)
